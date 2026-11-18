@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="A playable exhibition of experiments in code, from orbital mechanics to modular sound.">
+<title>Sol 6.2 Workbench | An exhibition you can play</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='11' fill='%23351b35'/%3E%3Ccircle cx='32' cy='32' r='19' fill='%23ffc9ad'/%3E%3Cpath d='M5 43L59 17' stroke='%23fffaeb' stroke-width='4'/%3E%3C/svg%3E">
+<script defer src="demos/science.js"></script>
+<script defer src="demos/creative.js"></script>
+<script defer src="demos/systems.js"></script>
+<script defer src="demos/algorithms.js"></script>
+<script defer src="demos/games.js"></script>
+<script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#collection">Skip to experiments</a>
+<header class="mast wrap">
+  <a class="wordmark" href="./" aria-label="Sol 6.2 Workbench home"><span class="logo" aria-hidden="true">☼</span> Sol 6.2 <span class="mark-divider">/</span> Workbench</a>
+  <a class="source" href="https://github.com/isiliconx/sol6.2">Source on GitHub <span aria-hidden="true">↗</span></a>
+</header>
+<main>
+<section class="hero wrap" aria-labelledby="headline">
+  <div class="hero-text">
+    <p class="catalogue">The experiment collection</p>
+    <h1 id="headline">An exhibition<br>you can play.</h1>
+    <p class="lede">Bend light. Break a database. Grow a city. Get your hands on experiments in science, creative code, systems, algorithms, and play.</p>
+    <div class="hero-actions"><a class="primary" href="#collection">Browse the experiments <span aria-hidden="true">↓</span></a><button id="surprise" class="quiet" type="button">Pick one for me <span aria-hidden="true">↗</span></button></div>
+  </div>
+  <figure class="hero-figure">
+    <svg id="hero-art" viewBox="0 0 660 500" role="img" aria-labelledby="hero-title"><title id="hero-title">A pink sun woven through a blue and ivory orbital mesh</title>
+      <defs>
+        <pattern id="hero-grid" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#ffecdc" opacity=".38"/></pattern>
+        <radialGradient id="sun"><stop stop-color="#ffdfc1"/><stop offset=".8" stop-color="#ffafaf"/><stop offset="1" stop-color="#f289a9"/></radialGradient>
+      </defs>
+      <rect width="660" height="500" fill="#281731"/><rect x="10" y="10" width="640" height="480" fill="url(#hero-grid)"/>
+      <path d="M28 250H632M330 32V468" stroke="#ffcecb" stroke-opacity=".31" stroke-dasharray="3 8"/>
+      <circle cx="330" cy="246" r="177" stroke="#ffcecb" stroke-opacity=".23" stroke-width="1" fill="none"/>
+      <circle cx="330" cy="246" r="107" fill="url(#sun)"/>
+      <g id="hero-orbit"></g>
+      <g fill="#ffddcf" font-family="monospace" font-size="12" letter-spacing="1.5"><text x="30" y="44">FIG. 01</text><text x="30" y="461">THE ORBITAL LOOM</text><text x="545" y="461">SOL / 6.2</text></g>
+    </svg>
+    <figcaption><span class="legend-dot"></span> Parametric orbital study <span>Rendered in your browser</span></figcaption>
+  </figure>
+</section>
+<section class="collection" id="collection" tabindex="-1" aria-labelledby="collection-title">
+  <div class="wrap">
+    <div class="collection-head">
+      <div><p class="catalogue">The catalogue</p><h2 id="collection-title">Pick a bench.</h2></div>
+      <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14.5 14.5 20 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><input id="search" type="search" placeholder="Find an experiment" autocomplete="off"></label>
+    </div>
+    <div class="filter-row"><div class="filters" id="filters" aria-label="Filter by domain"></div><p id="result-count" class="count" role="status" aria-live="polite"></p></div>
+    <div id="cards" class="cards"></div>
+    <noscript><p>Enable JavaScript to run the experiments.</p></noscript>
+  </div>
+</section>
+<section class="lab-note wrap" id="gpu-study" aria-labelledby="lab-title">
+  <figure><img src="lab/diffusion-print.jpg" alt="Cream and coral labyrinth patterns form nested rings in a deep violet field" width="704" height="456" loading="lazy"><figcaption>Computed on the GPU</figcaption></figure>
+  <div>
+    <p class="catalogue">From the GPU lab</p>
+    <h2 id="lab-title">A field that<br>draws itself.</h2>
+    <p class="lab-copy">Start with two rings of pigment. Run 1,700 steps and they become a maze. This Gray–Scott simulation ran on an NVIDIA RTX PRO 6000 Blackwell in 0.508 seconds.</p>
+    <a href="https://github.com/isiliconx/sol6.2/blob/main/lab/gpu_print.py">Read the CUDA render code ↗</a>
+  </div>
+</section>
+</main>
+<footer class="wrap foot"><span>☼ &nbsp; Sol 6.2 Workbench</span><span>Built with Sol 6.2. The controls run locally in your browser.</span><a href="https://github.com/isiliconx/sol6.2">Read the source ↗</a></footer>
+<dialog id="experiment" aria-labelledby="dialog-title"><div class="dialog-shell">
+  <div class="dialog-bar"><span id="dialog-kicker"></span><button id="close" class="close" type="button" aria-label="Close experiment" autofocus>✕</button></div>
+  <div class="dialog-body"><h2 id="dialog-title"></h2><p id="dialog-summary"></p><div id="demo-root"></div></div>
+  <div class="dialog-foot"><button type="button" id="copy-link">Copy experiment link</button><span id="copy-state" role="status"></span><button type="button" id="next-demo">Next experiment <span aria-hidden="true">→</span></button></div>
+</div></dialog>
+</body>
+</html>

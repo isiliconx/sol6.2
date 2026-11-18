@@ -1,0 +1,11 @@
+{
+  "renderer": "PyTorch CUDA",
+  "device": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "width": 704,
+  "height": 456,
+  "iterations": 1700,
+  "seed": 6262026,
+  "seconds": 0.508,
+  "timing_scope": "After CUDA availability and generator initialization, through final simulation synchronization; excludes palette encoding and disk write.",
+  "sha256": "436dbcb2a6d32917790c4e42f4398354d0b83854c367c9fc1d38d56b4146240e"
+}
