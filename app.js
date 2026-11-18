@@ -35,6 +35,16 @@
   const checks = ["All",...groups];
   const filters=$("filters"), cards=$("cards"), search=$("search"), dialog=$("experiment"), target=$("demo-root");
   let active = "All", current, cleanup, origin;
+  const embedded = location.protocol === "about:" || location.protocol === "data:";
+  function setAddress(id){
+    if(embedded)return;
+    try { history.replaceState(null,"",id?"#"+encodeURIComponent(id):location.pathname+location.search); }
+    catch { /* Some local and sandboxed viewers disallow address changes. */ }
+  }
+  if(embedded) for(const a of document.querySelectorAll('a[href^="#"]')){
+    const id=a.getAttribute("href").slice(1);
+    a.addEventListener("click",e=>{e.preventDefault(); $(id)?.scrollIntoView();});
+  }
   for (const group of checks) {
     const b=make("button","",group); b.type="button";b.dataset.group=group;
     b.setAttribute("aria-pressed",group===active);
@@ -546,7 +556,7 @@
     $("dialog-title").textContent=experiment.title;
     $("dialog-summary").textContent=experiment.summary;
     $("copy-state").textContent="";
-    if(changeHash) history.replaceState(null,"","#"+encodeURIComponent(experiment.id));
+    if(changeHash) setAddress(experiment.id);
     try{cleanup=experiment.mount(target);}catch(e){console.error("Experiment failed",experiment.id,e);target.append(make("p","demo-error","This experiment couldn't start in your browser. Try another bench."));}
     dialog.scrollTop=0;
   }
@@ -554,14 +564,15 @@
   $("close").addEventListener("click",()=>dialog.close());
   dialog.addEventListener("close",()=>{
     clearDemo(); current=null;
-    if(byId.has(readHash()))history.replaceState(null,"",location.pathname+location.search);
+    if(byId.has(readHash()))setAddress("");
     if(origin && origin.isConnected)origin.focus();origin=null;
   });
   $("surprise").addEventListener("click",e=>openDemo(list[Math.floor(Math.random()*list.length)],e.currentTarget));
   $("next-demo").addEventListener("click",()=>{if(!current)return;openDemo(list[(list.indexOf(current)+1)%list.length]); $("close").focus();});
   $("copy-link").addEventListener("click",async()=>{
-    try{await navigator.clipboard.writeText(location.href);$("copy-state").textContent="Copied";}
-    catch{$("copy-state").textContent="Copy this experiment’s address from your browser."; }
+    const url=embedded&&current?"https://isiliconx.github.io/sol6.2/#"+encodeURIComponent(current.id):location.href;
+    try{await navigator.clipboard.writeText(url);$("copy-state").textContent="Copied";}
+    catch{$("copy-state").textContent=embedded?"Copy the link from the published dashboard.":"Copy this experiment’s address from your browser."; }
   });
   search.addEventListener("input",render);render();
   const goFromHash=()=>{const x=byId.get(readHash());if(x&&x!==current)openDemo(x,null,false);};
